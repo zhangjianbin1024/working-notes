@@ -35,7 +35,7 @@ public class MysqlBatchUtil {
         int count = 0;
         PreparedStatement psts = conn.prepareStatement(sql);
         long begin = System.currentTimeMillis();
-        for (int i = 0; i <= 1000000; i++) {
+        for (int i = 1; i <= 1000000; i++) {
             psts.setString(1, String.valueOf(i));
             psts.setString(2, String.valueOf(i));
             psts.setString(3, String.valueOf(i));
