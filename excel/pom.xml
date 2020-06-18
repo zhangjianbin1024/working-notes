@@ -29,6 +29,7 @@
         <mysql.version>8.0.16</mysql.version>
         <druid.version>1.1.12</druid.version>
         <org.mapstruct.version>1.2.0.Final</org.mapstruct.version>
+        <fastjson.version>1.2.58</fastjson.version>
     </properties>
 
     <dependencies>
@@ -126,6 +127,12 @@
         <!--    <artifactId>pagehelper</artifactId>-->
         <!--    <version>5.1.2</version>-->
         <!--</dependency>-->
+
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+            <version>${fastjson.version}</version>
+        </dependency>
     </dependencies>
 
     <build>
