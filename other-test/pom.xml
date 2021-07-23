@@ -15,7 +15,7 @@
 
     <properties>
         <java.version>1.8</java.version>
-        <poi.version>3.11</poi.version>
+        <poi.version>3.17</poi.version>
         <mysql.version>8.0.16</mysql.version>
         <druid.version>1.1.12</druid.version>
         <org.mapstruct.version>1.2.0.Final</org.mapstruct.version>
