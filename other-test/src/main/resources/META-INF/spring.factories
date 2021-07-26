@@ -1,0 +1,3 @@
+com.myke.other.spi.SPI_IService=\
+  com.myke.other.spi.impl.HDFSService,\
+  com.myke.other.spi.impl.LocalService
