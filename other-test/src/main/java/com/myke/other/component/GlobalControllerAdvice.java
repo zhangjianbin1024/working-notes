@@ -35,6 +35,7 @@ public class GlobalControllerAdvice {
      */
     @ExceptionHandler(HttpRequestMethodNotSupportedException.class)
     public CommonResult httpRequestMethodNotSupportedExceptionHandler(HttpRequestMethodNotSupportedException e) {
+        log.error("HttpRequestMethodNotSupportedException异常:", e);
         return CommonResult.failed(BAD_REQUEST);
     }
 
@@ -119,6 +120,8 @@ public class GlobalControllerAdvice {
 
     @ExceptionHandler(value = ApiException.class)
     public CommonResult handle(ApiException e) {
+        log.error("ApiException异常:", e);
+
         if (e.getErrorCode() != null) {
             return CommonResult.failed(e.getErrorCode());
         }

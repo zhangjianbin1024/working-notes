@@ -1,6 +1,6 @@
 package com.myke.other.task;
 
-import com.myke.other.service.ExcelService;
+import com.myke.other.service.PoiExcelUserService;
 import com.myke.other.bo.ResultBO;
 import com.myke.other.service.UserService;
 import lombok.extern.slf4j.Slf4j;
@@ -30,12 +30,12 @@ public class ExcelWriteTaskThreadService implements Runnable {
     private LinkedBlockingQueue<DbTaskResultDTO> linkedQueue;
 
     private UserService userService;
-    private ExcelService excelService;
+    private PoiExcelUserService excelService;
 
 
     public ExcelWriteTaskThreadService(CountDownLatch latch, Sheet sheet,
                                        LinkedBlockingQueue<DbTaskResultDTO> linkedQueue,
-                                       UserService userService, ExcelService excelService) {
+                                       UserService userService, PoiExcelUserService excelService) {
         this.latch = latch;
         this.sheet = sheet;
         this.linkedQueue = linkedQueue;

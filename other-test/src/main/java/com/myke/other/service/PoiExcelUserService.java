@@ -13,7 +13,7 @@ import java.util.concurrent.atomic.AtomicInteger;
  * @date 2021年07月20日18:01
  */
 @Service
-public class ExcelService {
+public class PoiExcelUserService {
 
     public void writeExcelHead(Sheet sheet) {
         //创建 excel 表头，即列名

@@ -1,21 +1,23 @@
-package com.myke.other.controller;
+package com.myke.other.controller.excel.poi;
 
+import com.myke.other.bo.ResultBO;
+import com.myke.other.common.utils.ExcelUtil;
+import com.myke.other.common.utils.ThreadUtil;
 import com.myke.other.convert.UserDoConvertMapper;
 import com.myke.other.dto.QueryParamDTO;
 import com.myke.other.entity.UserDO;
-import com.myke.other.service.ExcelService;
-import com.myke.other.bo.ResultBO;
+import com.myke.other.service.PoiExcelUserService;
 import com.myke.other.service.UserService;
 import com.myke.other.task.DbTaskResultDTO;
 import com.myke.other.task.ExcelWriteTaskThreadService;
 import com.myke.other.task.QueryDataTaskThreadService;
-import com.myke.other.common.utils.ExcelUtil;
-import com.myke.other.common.utils.ThreadUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.xssf.streaming.SXSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.OutputStream;
@@ -27,21 +29,24 @@ import java.util.concurrent.LinkedBlockingQueue;
  * 下载 excel controller
  */
 @Slf4j
-@RestController
+@Controller
+@RequestMapping("/poi")
 public class DownloadExcelController {
 
     @Autowired
     private UserService userService;
     @Autowired
-    private ExcelService excelService;
+    private PoiExcelUserService excelService;
 
     /**
      * excel 导出
      *
      * @param queryDTO
      */
-    @PostMapping("/download-excel")
-    public void downloadExcel(@RequestBody(required = false) QueryParamDTO queryDTO,
+    //@GetMapping("/download-excel")
+    //@PostMapping("/download-excel")
+    @RequestMapping("/download-excel")
+    public void downloadExcel(@RequestParam(required = false) QueryParamDTO queryDTO,
                               HttpServletResponse response) {
 
         OutputStream os = null;
@@ -60,10 +65,10 @@ public class DownloadExcelController {
 
         //创建线程池
         ExecutorService executorService =
-                ThreadUtil.createThreadPool("download-excel");
+                ThreadUtil.createThreadPool("poi-excel-test");
         //创建工作薄
         SXSSFWorkbook workBook = ExcelUtil.createWorkBook();
-        Sheet sheet = ExcelUtil.createSheet(workBook, "demo-test");
+        Sheet sheet = ExcelUtil.createSheet(workBook, "poi-excel-test");
 
         //写 sheet 头，列名
         excelService.writeExcelHead(sheet);
@@ -94,10 +99,14 @@ public class DownloadExcelController {
             //等待excel写任务执行完成后，再向下继续执行
             latch.await();
 
-            // 设置下载类型
+            // 设置下载类型,让服务器告诉浏览器它发送的数据属于什么文件类型
             response.setHeader("content-Type", "application/vnd.ms-excel");
-            //设置文件的名称
+            //设置文件的名称,当Content-Type 的类型为要下载的类型时 , 这个信息头会告诉浏览器这个文件的名字和类型
             response.setHeader("content-disposition", "attachment;filename=" + sheet.getSheetName() + ".xlsx");
+            //URLEncoder.encode(sheet.getSheetName(), "UTF-8")
+
+
+            response.setHeader("Set-Cookie", "fileDownload=true; path=/");
 
             os = response.getOutputStream();
             workBook.write(os);

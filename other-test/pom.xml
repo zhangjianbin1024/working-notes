@@ -15,7 +15,7 @@
 
     <properties>
         <java.version>1.8</java.version>
-        <poi.version>3.11</poi.version>
+
         <mysql.version>8.0.16</mysql.version>
         <druid.version>1.1.12</druid.version>
         <org.mapstruct.version>1.2.0.Final</org.mapstruct.version>
@@ -27,6 +27,8 @@
         <httpclient.version>4.5.8</httpclient.version>
         <hutool-all.version>5.5.8</hutool-all.version>
         <springfox-swagger2.version>2.7.0</springfox-swagger2.version>
+        <poi.version>3.17</poi.version>
+        <easyexcel.version>2.2.10</easyexcel.version>
     </properties>
 
     <dependencies>
@@ -52,6 +54,14 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-actuator</artifactId>
         </dependency>
+
+
+        <!-- FreeMaker 的依赖 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-freemarker</artifactId>
+        </dependency>
+
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -195,6 +205,14 @@
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
             <version>3.8.1</version>
+        </dependency>
+
+
+        <!-- 用法文档 https://www.yuque.com/easyexcel/doc/easyexcel -->
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>easyexcel</artifactId>
+            <version>${easyexcel.version}</version>
         </dependency>
 
         <!--endregion-->
