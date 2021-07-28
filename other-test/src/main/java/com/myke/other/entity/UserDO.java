@@ -9,6 +9,9 @@ import java.util.Date;
 
 @Data
 public class UserDO implements Serializable {
+
+    private static final long serialVersionUID = 1L;
+
     /**
      * 主键
      */
@@ -42,5 +45,10 @@ public class UserDO implements Serializable {
     private LocalDateTime date4 = LocalDateTime.now();
 
 
-    private static final long serialVersionUID = 1L;
+    public UserDO() {
+    }
+
+    public UserDO(String username) {
+        this.username = username;
+    }
 }

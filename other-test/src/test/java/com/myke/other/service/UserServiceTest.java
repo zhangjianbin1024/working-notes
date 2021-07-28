@@ -46,13 +46,4 @@ public class UserServiceTest extends OtherApplicationTest {
         userService.insertSelective(userDO);
     }
 
-    @Test
-    public void save3() { //手动回滚事务
-        UserDO userDO = new UserDO();
-        userDO.setAge(0);
-        userDO.setPassword("123");
-        userDO.setSex(0);
-        userDO.setUsername("123");
-        userService.insertSelective2(userDO);
-    }
 }

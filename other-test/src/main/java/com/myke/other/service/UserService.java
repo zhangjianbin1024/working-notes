@@ -3,13 +3,12 @@ package com.myke.other.service;
 import com.github.pagehelper.PageHelper;
 import com.myke.other.bo.ResultBO;
 import com.myke.other.common.api.CommonPage;
+import com.myke.other.dto.QueryParamDTO;
 import com.myke.other.entity.UserDO;
 import com.myke.other.mapper.UserMapper;
-import com.myke.other.dto.QueryParamDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
 import java.util.List;
 
@@ -22,20 +21,6 @@ public class UserService {
     @Transactional(rollbackFor = {Exception.class})
     public int insertSelective(UserDO userDO) {
         return userMapper.insertSelective(userDO);
-    }
-
-    @Transactional(rollbackFor = {Exception.class})
-    public int insertSelective2(UserDO userDO) {
-        int count = 0;
-        try {
-            count = userMapper.insertSelective(userDO);
-            throw new RuntimeException("测试事务异常");
-        } catch (Exception e) {
-            e.printStackTrace();
-            //手动设置 事务回滚
-            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
-        }
-        return count;
     }
 
 
