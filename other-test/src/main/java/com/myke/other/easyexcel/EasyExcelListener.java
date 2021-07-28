@@ -4,8 +4,10 @@ import com.alibaba.excel.annotation.ExcelProperty;
 import com.alibaba.excel.context.AnalysisContext;
 import com.alibaba.excel.event.AnalysisEventListener;
 import com.alibaba.excel.exception.ExcelAnalysisException;
+import com.alibaba.fastjson.JSON;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 
 import java.lang.reflect.Field;
@@ -16,6 +18,7 @@ import java.util.*;
  *
  * @param <T>
  */
+@Slf4j
 @Data
 @EqualsAndHashCode(callSuper = false)
 public class EasyExcelListener<T> extends AnalysisEventListener<T> {
@@ -45,6 +48,8 @@ public class EasyExcelListener<T> extends AnalysisEventListener<T> {
 
     @Override
     public void invoke(T t, AnalysisContext analysisContext) {
+        log.info("解析到一条数据:{}", JSON.toJSONString(t));
+
         String errMsg;
         try {
             //根据excel数据实体中的javax.validation + 正则表达式来校验excel数据
@@ -72,6 +77,8 @@ public class EasyExcelListener<T> extends AnalysisEventListener<T> {
     //所有数据解析完成了 都会来调用
     @Override
     public void doAfterAllAnalysed(AnalysisContext analysisContext) {
+        log.info("所有数据解析完成！");
+
         ExcelCheckResult result = excelCheckManager.checkImportExcel(list);
 
         successList.addAll(result.getSuccessDtos());
