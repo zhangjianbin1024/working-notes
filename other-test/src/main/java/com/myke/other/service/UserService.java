@@ -7,9 +7,12 @@ import com.myke.other.dto.QueryParamDTO;
 import com.myke.other.entity.UserDO;
 import com.myke.other.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.support.TransactionTemplate;
 
+import javax.annotation.Resource;
 import java.util.List;
 
 @Service
@@ -18,6 +21,14 @@ public class UserService {
     @Autowired
     private UserMapper userMapper;
 
+
+    /**
+     * 注解式事务管理
+     *
+     * @param userDO
+     *
+     * @return
+     */
     @Transactional(rollbackFor = {Exception.class})
     public int insertSelective(UserDO userDO) {
         return userMapper.insertSelective(userDO);
