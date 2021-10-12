@@ -2,6 +2,7 @@ package com.myke.other.service;
 
 
 import com.myke.other.entity.UserDO;
+import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -38,6 +39,9 @@ public class TransactionUserService4 {
 
     @Autowired
     private TransactionUserService3 userService3;
+
+    @Autowired
+    private TransactionUserService5 userService5;
 
     /************************* REQUIRED **********************************/
 
@@ -358,5 +362,50 @@ public class TransactionUserService4 {
         }
         // 回滚到保存点
         // 嵌套事务异常被捕获，外围事务提交，165插入成功
+    }
+
+    /****************************************************************/
+
+
+    /**
+     * 异常：事务超时
+     * MySQLTransactionRollbackException: Lock wait timeout exceeded; try restarting transaction
+     */
+    @SneakyThrows
+    public void test17() {
+        userService5.test_thread2();
+    }
+
+    /**
+     * 异常：
+     * TransactionTimedOutException: Transaction timed out: deadline was Thu Jul 29 13:19:10 CST 2021
+     */
+    public void test18() {
+        UserDO userDO = new UserDO("jdbcTemplate");
+        userService2.addUserDoAnnotationTransactionalTimeOutWithJdbcTemplate(userDO);
+    }
+
+    /**
+     * 异常：
+     * TransactionTimedOutException: Transaction timed out: deadline was Thu Jul 29 13:40:56 CST 2021
+     */
+    public void test19() {
+        Thread t1 = new Thread(() -> {
+            UserDO userDO = new UserDO("mybatis");
+            userService2.addUserDoAnnotationTransactionalTimeOutWithMybatis(userDO);
+
+        });
+
+        Thread t2 = new Thread(() -> {
+            UserDO userDO = new UserDO("mybatis");
+            userService2.addUserDoAnnotationTransactionalTimeOutWithMybatis(userDO);
+        });
+        t1.start();
+        t2.start();
+
+        // 为了查看子线程执行情况,所以这里使用while-true
+        while (true) {
+        }
+
     }
 }

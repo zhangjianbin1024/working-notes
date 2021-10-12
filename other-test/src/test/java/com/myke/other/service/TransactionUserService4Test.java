@@ -91,5 +91,19 @@ public class TransactionUserService4Test extends OtherApplicationTest {
     }
 
 
+    @Test
+    public void test17() {
+        userService4.test17();
+    }
+
+    @Test
+    public void test18() {
+        userService4.test18();
+    }
+
+    @Test
+    public void test19() {
+        userService4.test19();
+    }
 
 }

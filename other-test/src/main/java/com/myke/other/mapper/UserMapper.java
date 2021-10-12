@@ -15,4 +15,8 @@ public interface UserMapper {
 
     List<UserDO> queryByAll(UserDO userDO);
 
+    int deleteByUsername(@Param("username")String username);
+
+
+
 }

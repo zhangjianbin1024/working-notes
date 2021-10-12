@@ -3,6 +3,7 @@ package com.myke.other.entity;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
+import javax.persistence.Transient;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Date;
@@ -37,10 +38,14 @@ public class UserDO implements Serializable {
      */
     private String username;
 
+    @Transient
     private Date date1 = new Date();
+    @Transient
     private LocalDateTime date2 = LocalDateTime.now();
+    @Transient
     @JsonFormat(pattern = "yyyy-MM-dd hh:mm:ss", timezone = "GMT+8")
     private Date date3 = new Date();
+    @Transient
     @JsonFormat(pattern = "yyyy-MM-dd hh:mm:ss", timezone = "GMT+8")
     private LocalDateTime date4 = LocalDateTime.now();
 
