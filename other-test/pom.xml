@@ -27,7 +27,7 @@
         <httpclient.version>4.5.8</httpclient.version>
         <hutool-all.version>5.5.8</hutool-all.version>
         <springfox-swagger2.version>2.7.0</springfox-swagger2.version>
-        <poi.version>3.17</poi.version>
+        <poi.version>4.1.1</poi.version>
         <easyexcel.version>2.2.10</easyexcel.version>
         <assertj-core.version>3.11.1</assertj-core.version>
         <javax.persistence-api.version>2.2</javax.persistence-api.version>
